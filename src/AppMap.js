@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component, useEffect, useState} from "react";
 import { render } from "react-dom";
 import MapGL, {
     Marker,
@@ -30,90 +30,70 @@ const navStyle = {
     padding: "10px"
 };
 
-class AppMap extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            viewport: {
-                latitude: 37.785164,
-                longitude: -100,
-                zoom: 3.5,
-                bearing: 0,
-                pitch: 0
-            },
-            popupInfo: null
-        };
-
+function AppMap() {
+    const [viewport, setViewport] = useState({
+        latitude: 37.785164,
+        longitude: -100,
+        zoom: 3.5,
+        bearing: 0,
+        pitch: 0
+    });
+    const [popupInfo, setPopupInfo] = useState(null);
+    useEffect(() => {
         window.test = () => {
-            this.setState({
-                ...this.state,
+            setViewport({
+                ...viewport,
                 viewport: {
-                    ...this.state.viewport,
-                    zoom: this.state.viewport.zoom === 5 ? 1 : 5
+                    ...viewport,
+                    zoom: viewport.zoom === 5 ? 1 : 5
                 }
             });
         };
-    }
-
-    _updateViewport = (viewport) => {
-        this.setState({ viewport });
-    };
-
-    _renderCityMarker = (city, index) => {
-        return (
-            <Marker
-                key={`marker-${index}`}
-                longitude={city.longitude}
-                latitude={city.latitude}
+    },[]);
+    function TestPopup(props) {
+        if (props.popupInfo) {
+            return <Popup
+                tipSize={5}
+                anchor="top"
+                longitude={props.popupInfo.longitude}
+                latitude={props.popupInfo.latitude}
+                closeOnClick={false}
+                onClose={() =>setPopupInfo(null )}
             >
-                <CityPin size={20} onClick={() => this.setState({ popupInfo: city })} />
-            </Marker>
-        );
-    };
-
-    _renderPopup() {
-        const { popupInfo } = this.state;
-
-        return (
-            popupInfo && (
-                <Popup
-                    tipSize={5}
-                    anchor="top"
-                    longitude={popupInfo.longitude}
-                    latitude={popupInfo.latitude}
-                    closeOnClick={false}
-                    onClose={() => this.setState({ popupInfo: null })}
+                <CityInfo info={props.popupInfo} />
+            </Popup>;
+        }else{
+            return <></>
+        }
+    }
+    return (
+        <MapGL
+            {...viewport}
+            width="100vw"
+            height="100vh"
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+            onViewportChange={setViewport}
+            mapboxApiAccessToken={TOKEN}
+        >
+            {CITIES.map((city,index) =>
+                <Marker
+                    key={`marker-${index}`}
+                    longitude={city.longitude}
+                    latitude={city.latitude}
                 >
-                    <CityInfo info={popupInfo} />
-                </Popup>
-            )
-        );
-    }
-
-    render() {
-        const { viewport } = this.state;
-        return (
-            <MapGL
-                {...viewport}
-                width="100vw"
-                height="100vh"
-                mapStyle="mapbox://styles/mapbox/streets-v11"
-                onViewportChange={this._updateViewport}
-                mapboxApiAccessToken={TOKEN}
-            >
-                {CITIES.map(this._renderCityMarker)}
-
-                {this._renderPopup()}
-
-                <div className="fullscreen" style={fullscreenControlStyle}>
-                    <FullscreenControl />
-                </div>
-                <div className="nav" style={navStyle}>
-                    <NavigationControl />
-                </div>
-            </MapGL>
-        );
-    }
+                    <CityPin size={20} onClick={() => setPopupInfo( city )} />
+                </Marker>
+            )}
+            <TestPopup popupInfo={popupInfo} />
+            <div className="fullscreen" style={fullscreenControlStyle}>
+                <FullscreenControl />
+            </div>
+            <div className="nav" style={navStyle}>
+                <NavigationControl />
+            </div>
+        </MapGL>
+    );
 }
+
 
 export default AppMap
