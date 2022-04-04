@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {mapSlice} from "./slice";
+import slice from "./slice";
 
 export const store = configureStore({
     reducer: {
-        map: mapSlice,
+        counter: slice,
     },
 })

@@ -31,15 +31,7 @@ const navStyle = {
 };
 
 function AppMap() {
-    const [viewport, setViewport] = useState({
-        latitude: 37.785164,
-        longitude: -100,
-        zoom: 3.5,
-        bearing: 0,
-        pitch: 0
-    });
-    const [popupInfo, setPopupInfo] = useState(null);
-    useEffect(() => {
+    /*useEffect(() => {
         window.test = () => {
             setViewport({
                 ...viewport,
@@ -49,18 +41,29 @@ function AppMap() {
                 }
             });
         };
-    },[]);
-    function TestPopup(props) {
-        if (props.popupInfo) {
+    },[]);*/
+    const [viewport, setViewport] = useState({
+        latitude: 37.785164,
+        longitude: -100,
+        zoom: 3.5,
+        bearing: 0,
+        pitch: 0
+    });
+
+    const [popupInfo, setPopupInfo] = useState(null);
+    const count = useSelector((state) => state.counter.places)
+    console.log(count)
+    function TestPopup() {
+        if (popupInfo) {
             return <Popup
                 tipSize={5}
                 anchor="top"
-                longitude={props.popupInfo.longitude}
-                latitude={props.popupInfo.latitude}
+                longitude={popupInfo.longitude}
+                latitude={popupInfo.latitude}
                 closeOnClick={false}
                 onClose={() =>setPopupInfo(null )}
             >
-                <CityInfo info={props.popupInfo} />
+                <CityInfo info={popupInfo} />
             </Popup>;
         }else{
             return <></>
@@ -75,7 +78,7 @@ function AppMap() {
             onViewportChange={setViewport}
             mapboxApiAccessToken={TOKEN}
         >
-            {CITIES.map((city,index) =>
+            {count.map((city,index) =>
                 <Marker
                     key={`marker-${index}`}
                     longitude={city.longitude}

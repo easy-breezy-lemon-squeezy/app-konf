@@ -16,7 +16,7 @@ export default class CityInfo extends PureComponent {
             Wikipedia
           </a>
         </div>
-        <img width={240} src={info.image} />
+          <img width={240} src={'data:image/jpg;base64,'+ info.image} />
       </div>
     );
   }
