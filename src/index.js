@@ -9,7 +9,7 @@ ReactDOM.render(
             <div className="flexChild">
                 <AppMap />
             </div>
-            <div className="flexChild">
+            <div className="flexChild" style={{alignItems:"start", paddingTop:"80px", justifyContent:"center"}}>
                 <AppForm />
             </div>
         </div>

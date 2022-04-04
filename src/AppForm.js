@@ -1,4 +1,4 @@
-import React from 'react';
+
 import React, {useState, useEffect} from 'react';
 
 import {AddressSuggestions} from 'react-dadata';
@@ -8,13 +8,8 @@ import { useForm, Controller } from "react-hook-form";
 import Dropzone from "react-dropzone";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import CloudUpload from "@material-ui/icons/CloudUpload";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InsertDriveFile from "@material-ui/icons/InsertDriveFile";
+import { Input, ListItemText, ListItemIcon, Button, ListItem, List, Paper } from '@material-ui/core';
+import {InsertDriveFile, CloudUpload}from "@material-ui/icons";
 
 
 
@@ -31,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "16px",
         color: "#888888",
         fontSize: "42px",
-    },
+    }
 }));
 const AppForm = () => {
     const styles = useStyles();
@@ -53,10 +48,10 @@ const AppForm = () => {
     }
 
     return (
-        <div>
+        <div className="formWrapper">
+            <h3>Новая заявка</h3>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                style={{width: '66%', margin: '0 auto'}}
             >
                 <div>
                     <input
@@ -109,7 +104,8 @@ const AppForm = () => {
                         name="adress"
                         control={control}
                         render={({ field }) =>
-                            <AddressSuggestions {...field} token="f6b6025b5fff69205839aa61dd8dd683f4b3b9b6" value={field.value}
+                            <AddressSuggestions  inputProps={{
+                                'placeholder': 'Адрес'}} {...field} token="f6b6025b5fff69205839aa61dd8dd683f4b3b9b6" value={field.value}
                                                 onChange={(e) => field.onChange(e)}/>}
                     />
 
@@ -148,8 +144,11 @@ const AppForm = () => {
                         )}
                     />
                 </div>
+                <div className="butWrapper">
+                    <button>Отправить</button>
+                </div>
 
-                <button>Send</button>
+
             </form>
         </div>
     )

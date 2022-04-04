@@ -6,6 +6,7 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #fafafa;
 }
 
 code {
@@ -20,11 +21,82 @@ code {
     padding: 0;
 }
 .flexChild {
-    background: #ccc;
+    background-color: #fafafa;
     box-sizing: border-box;
     width: 50%;
     white-space: nowrap;
     display: flex;
     flex-wrap: nowrap;
     height: 100vh;
+}
+input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    height: 38px;
+    outline: none;
+    padding: 0 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    height: 38px;
+    outline: none;
+    padding: 10px 10px;
+    min-width: 100%;
+    max-width: 500px;
+    min-height: 150px;
+    max-height: 250px;
+    margin-bottom: 15px;
+}
+textarea::placeholder {
+    font-family: Arial;
+}
+input:focus {
+    border-color: #007cd6;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 0 3px rgb(0 124 214 / 30%);
+}
+textarea:focus {
+    border-color: #007cd6;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 0 3px rgb(0 124 214 / 30%);
+}
+h3{
+    font-family: "Museo Sans Cyrl 500",sans-serif;
+    color: #3d4b52;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+.formWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-width:500px;
+}
+.butWrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 42px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
 }
