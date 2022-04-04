@@ -11,6 +11,7 @@ import CityPin from "./city-pin";
 import CityInfo from "./city-info";
 
 import CITIES from "./cities.json";
+import {useSelector} from "react-redux";
 
 const TOKEN =
     "pk.eyJ1Ijoia2xlbm9vb2oiLCJhIjoiY2wxOXBldmdhMXBrZDNic2d4YXh6bjZ4diJ9.TZxc82dFKIwWJWvAuR5rKA"; // Set your mapbox token here
@@ -91,7 +92,6 @@ class AppMap extends Component {
 
     render() {
         const { viewport } = this.state;
-
         return (
             <MapGL
                 {...viewport}
