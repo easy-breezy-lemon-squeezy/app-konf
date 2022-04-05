@@ -1,4 +1,5 @@
 import React, {Component, useEffect, useState} from "react";
+import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import { render } from "react-dom";
 import MapGL, {
     Marker,
@@ -42,17 +43,18 @@ function AppMap() {
             });
         };
     },[]);*/
-    const [viewport, setViewport] = useState({
-        latitude: 37.785164,
-        longitude: -100,
-        zoom: 3.5,
-        bearing: 0,
-        pitch: 0
-    });
 
+
+    const [viewport, setViewport] = useState({
+        latitude: 56.111,
+        longitude: 47.215,
+        zoom: 11,
+        bearing: 0,
+        pitch: 0,
+    });
     const [popupInfo, setPopupInfo] = useState(null);
-    const count = useSelector((state) => state.counter.places)
-    console.log(count)
+    const mapPlaces = useSelector((state) => state.map.places)
+
     function TestPopup() {
         if (popupInfo) {
             return <Popup
@@ -78,7 +80,8 @@ function AppMap() {
             onViewportChange={setViewport}
             mapboxApiAccessToken={TOKEN}
         >
-            {count.map((city,index) =>
+
+            {mapPlaces.map((city,index) =>
                 <Marker
                     key={`marker-${index}`}
                     longitude={city.longitude}

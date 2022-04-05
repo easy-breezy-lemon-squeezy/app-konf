@@ -10,6 +10,8 @@ import Dropzone from "react-dropzone";
 import { makeStyles } from "@material-ui/core/styles";
 import { Input, ListItemText, ListItemIcon, Button, ListItem, List, Paper } from '@material-ui/core';
 import {InsertDriveFile, CloudUpload}from "@material-ui/icons";
+import {useDispatch} from "react-redux";
+import {addPlace} from "./redux/slice";
 
 
 
@@ -41,11 +43,13 @@ const AppForm = () => {
         mode: 'onChange',
     })
 
+    const dispatch = useDispatch();
 
     const onSubmit = data => {
-        console.log(data)
+        dispatch(addPlace(data));
         reset()
     }
+
 
     return (
         <div className="formWrapper">
@@ -53,6 +57,7 @@ const AppForm = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
             >
+
                 <div>
                     <input
                         {...register('name', {
@@ -145,7 +150,7 @@ const AppForm = () => {
                     />
                 </div>
                 <div className="butWrapper">
-                    <button>Отправить</button>
+                    <button style={{color: 'white'}}>Отправить</button>
                 </div>
 
 
